@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Quiz</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      color: #28a745 !important;
+    }
+    .navbar-nav .nav-link {
+      font-weight: 500;
+      color: #5a5a5a !important;
+    }
+    .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+      color: #28a745 !important;
+    }
+    .delete-area {
+      background-color: white;
+      padding: 2rem;
+      border-radius: .3rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-top: 2rem;
+    }
+    .btn-custom {
+      transition: all 0.3s;
+    }
+    .btn-custom:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    footer {
+      background-color: #f1f1f1;
+      padding: 1rem 0;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .footer-text {
+      color: #6c757d;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="index"><i class="fas fa-seedling"></i> Quiz App</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="index">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="quizzesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Quizzes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="quizzesDropdown">
+            <li><a class="dropdown-item" href="quizlist">See All Quizzes</a></li>
+            <li><a class="dropdown-item" href="generatequiz">Generate a New Quiz</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="?randomquiz=true">Take a Random Quiz</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="flashcardsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            FlashCards
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="flashcardsDropdown">
+            <li><a class="dropdown-item" href="flashcardlist">See All FlashCards</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="flashcard?randomcard=true">View Random FlashCard</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="delete-area">
+    <h2 class="mb-4">Delete Quiz</h2>
+    <form method="POST" th:action="@{/deletequiz}">
+      <div class="mb-3">
+        <p><strong>Quiz ID:</strong> <span th:text="${quiz.getQuizID()}"></span></p>
+        <p><strong>Quiz Title:</strong> <span th:text="${quiz.getQuizTitle()}"></span></p>
+      </div>
+      <div class="alert alert-warning" role="alert">
+        <p class="mb-0"><strong>Warning:</strong> Are you sure you would like to delete this quiz?</p>
+        <p class="mb-0">(The associated flashcards will still exist, but will be orphan cards with no parent quiz.)</p>
+      </div>
+      <button type="submit" class="btn btn-danger btn-custom">Delete Quiz</button>
+      <a href="quizlist" class="btn btn-secondary btn-custom ms-2">Cancel</a>
+    </form>
+  </div>
+</div>
+
+<footer class="bg-light text-center py-3 mt-5">
+  <div class="container">
+    <span class="footer-text">&copy; 2024 Quiz app developed by iobradovuch.</span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
